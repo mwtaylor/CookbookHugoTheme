@@ -1,6 +1,6 @@
 {{ define "body" }}
     <div class="container">
-        <div class="row">
+        <div class="row mt-4">
             {{ .Content }}
         </div>
         {{ partial "paginated-recipe-cards.html" (.Paginate (where .Site.RegularPages "Section" "recipes")) }}

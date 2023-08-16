@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        {{ with .logo }}
+            <a class="navbar-brand py-0 my-n2" href="/">
+                <img src="{{ .RelPermalink }}" alt="Site logo" height="54">
+            </a>
+        {{ end }}
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNavItems"
+                aria-controls="navbarNavItems"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavItems">
+            <div class="navbar-nav nav-underline">
+                {{ $page := .page }}
+                {{ $menu := .menu }}
+                {{ range $menu }}
+                    {{ if not .HasChildren }}
+                        <a class="nav-link {{ if $page.IsMenuCurrent .Menu . }}active{{ end }}" href="{{ .URL }}">
+                            {{ .Name }}
+                        </a>
+                    {{ end }}
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</nav>

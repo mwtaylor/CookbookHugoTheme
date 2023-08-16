@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{{ .Site.Title }}</title>
+    <title>{{ $.Site.Title }}</title>
+    {{ with resources.Get $.Site.Params.logo }}
+        <link rel="icon" type="image/x-icon" href="{{ .RelPermalink }}">
+    {{ end }}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/css/main.css" rel="stylesheet">
@@ -26,6 +29,9 @@
     <script src="https://kit.fontawesome.com/ccc02a44a7.js" crossorigin="anonymous"></script>
 </head>
 <body style="visibility: hidden;" class="d-flex flex-column min-vh-100">
+    {{ block "header" . }}
+        {{ partial "navigation.html" (dict "logo" (resources.Get $.Site.Params.logo) "menu" $.Site.Menus.main "page" $.Page) }}
+    {{ end }}
     {{ block "body" . }}{{ end }}
     <div class="flex-fill"></div>
     {{ block "footer" . }}
