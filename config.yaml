@@ -1,0 +1,21 @@
+params:
+  social_account_types:
+    - mastodon
+    - github
+  social_account_types_params:
+    mastodon:
+      rel_me: true
+      text: Follow me on Mastodon
+      logo: fa-mastodon
+      link: "https://[0]/@[1]"
+      link_values:
+        - server
+        - username
+    github:
+      rel_me: false
+      text: Source on GitHub
+      logo: fa-github
+      link: "https://github.com/[0]/[1]"
+      link_values:
+        - username
+        - repository

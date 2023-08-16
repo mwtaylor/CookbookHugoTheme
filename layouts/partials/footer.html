@@ -1,0 +1,10 @@
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        <div class="d-flex flex-row w-100 gap-4">
+            {{ partial "social-accounts/account-buttons.html" . }}
+            {{ with .credits }}
+                {{ partial "credits/open-button.html" }}
+            {{ end }}
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,20 @@
+{{ $social_accounts := .social_accounts }}
+{{ $social_account_types_params := .social_account_types_params }}
+{{ range $social_account_type := .social_account_types }}
+    {{ if isset $social_accounts $social_account_type }}
+        {{ $social_account := (index $social_accounts $social_account_type) }}
+        {{ $social_account_type_params := index $social_account_types_params $social_account_type }}
+        {{ $link := $social_account_type_params.link }}
+        {{ range $index, $link_value := $social_account_type_params.link_values }}
+            {{ $link = replace $link (printf "[%d]" $index) (index $social_account $link_value) }}
+        {{ end }}
+        {{ partial "social-accounts/account-button.html" (dict
+        "account_type" $social_account_type
+        "text" $social_account_type_params.text
+        "logo" $social_account_type_params.logo
+        "link" $link
+        "rel_me" $social_account_type_params.rel_me
+        )
+        }}
+    {{ end }}
+{{ end }}

@@ -23,23 +23,16 @@
             crossorigin="anonymous"
     >
     </script>
+    <script src="https://kit.fontawesome.com/ccc02a44a7.js" crossorigin="anonymous"></script>
 </head>
-<body style="visibility: hidden;">
+<body style="visibility: hidden;" class="d-flex flex-column min-vh-100">
     {{ block "body" . }}{{ end }}
+    <div class="flex-fill"></div>
+    {{ block "footer" . }}
+        {{ partial "footer.html" $.Site.Params }}
+    {{ end }}
     {{ with .Site.Params.credits }}
-        <div class="modal fade" id="creditsModal" tabindex="-1" aria-labelledby="creditsModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="creditsModalLabel">Credits</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        {{ markdownify . }}
-                    </div>
-                </div>
-            </div>
-        </div>
+        {{ partial "credits/modal.html" . }}
     {{ end }}
     <script type="module" src="/js/convert-date-to-time-from-now.js"></script>
     <script src="/js/main.js"></script>
