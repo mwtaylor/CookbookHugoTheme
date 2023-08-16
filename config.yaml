@@ -1,3 +1,23 @@
+menu:
+  main:
+    - name: Home
+      weight: 1
+      pageRef: /
+    - name: Categories
+      weight: 2
+      pageRef: /categories/
+    - name: Cuisines
+      weight: 3
+      pageRef: /cuisines/
+    - name: Tags
+      weight: 4
+      pageRef: /tags/
+    - name: Ingredients
+      weight: 5
+      pageRef: /ingredients/
+    - name: Equipment
+      weight: 6
+      pageRef: /equipment/
 params:
   social_account_types:
     - mastodon
