@@ -3,8 +3,8 @@
         <div class="row mt-4">
             {{ .Content }}
         </div>
-        {{ partial "paginated-recipe-cards.html" (.Paginate (where .Site.RegularPages "Section" "recipes")) }}
-        <div class="row">
+        {{ partial "recipe-card/card-deck.html" (dict "pages" (.Paginate (where .Site.RegularPages "Section" "recipes")).Pages) }}
+        <div class="row mt-4">
             <div class="col">
                 {{ template "_internal/pagination.html" . }}
             </div>

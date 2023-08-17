@@ -1,0 +1,12 @@
+<div class="row row-cols-1 row-cols-md-3 gy-4">
+    {{ range .pages }}
+        <div class="col">
+            {{ partial "recipe-card/recipe.html" . }}
+        </div>
+    {{ end }}
+    {{ with .all_recipes_link }}
+        <div class="col">
+            {{ partial "recipe-card/all-recipes.html" . }}
+        </div>
+    {{ end }}
+</div>

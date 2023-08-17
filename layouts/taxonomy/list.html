@@ -1,0 +1,45 @@
+{{ define "body" }}
+    <div class="container py-4">
+        <div class="row">
+            <div class="col">
+                {{ $title := printf "Browse Recipes by %s" (humanize .Data.Singular) }}
+                {{ if isset page.Params "taxonomy_title" }}
+                    {{ $title = page.Params.taxonomy_title }}
+                {{ end }}
+                <h1>{{ $title }}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="accordion" id="taxonomy-term-list">
+                {{ range .Data.Terms.Alphabetical }}
+                    <div class="accordion-item">
+                        <h1 class="accordion-header">
+                            <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#{{ .Term }}-recipe-list"
+                                    aria-controls="{{ .Term }}-recipe-list"
+                            >
+                                {{ .Page.Title }}
+                            </button>
+                        </h1>
+                        <div
+                                class="accordion-collapse collapse"
+                                id="{{ .Term }}-recipe-list"
+                                data-bs-parent="#taxonomy-term-list"
+                        >
+                            <div class="accordion-body">
+                                {{ $recipe_cards_params := (dict "pages" (first 5 .Pages)) }}
+                                {{ if gt (.Pages | len) 5 }}
+                                    {{ $recipe_cards_params = merge $recipe_cards_params (dict "all_recipes_link" .Page.RelPermalink) }}
+                                {{ end }}
+                                {{ partial "recipe-card/card-deck.html" $recipe_cards_params }}
+                            </div>
+                        </div>
+                    </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+{{ end }}

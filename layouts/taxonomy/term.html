@@ -1,0 +1,19 @@
+{{ define "body" }}
+    <div class="container pt-4">
+        <div class="row">
+            <div class="col">
+                {{ $title := printf "%s Recipes" (humanize .Data.Term) }}
+                {{ if isset page.Params "term_title" }}
+                    {{ $title = replace page.Params.term_title "[term]" (humanize .Data.Term) }}
+                {{ end }}
+                <h1>{{ $title }}</h1>
+            </div>
+        </div>
+        {{ partial "recipe-card/card-deck.html" (dict "pages" (.Paginate .Pages).Pages) }}
+        <div class="row mt-4">
+            <div class="col">
+                {{ template "_internal/pagination.html" . }}
+            </div>
+        </div>
+    </div>
+{{ end }}
