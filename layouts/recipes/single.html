@@ -3,90 +3,12 @@
         {{ with .Resources.GetMatch "16x9/recipe.jpg" }}
             <img src="{{ .RelPermalink }}" alt="Lead image for recipe {{ $.Page.Title }}" class="rounded mx-auto d-block img-fluid">
         {{ end }}
-        <div class="row pt-4">
-            <div class="col text-center">
-                <h1 class="display-1">{{ .Title }}</h1>
-            </div>
-        </div>
-        <div class="row pt-2">
-            <div class="d-flex flex-lg-row flex-column gap-2 justify-content-center">
-                {{ with .GetTerms "cuisines" }}
-                    <div class="btn-group btn-group-lg" role="group" aria-label="Cuisines">
-                        {{ range . }}
-                            <a href="{{ .RelPermalink }}" class="btn btn-dark">{{ .LinkTitle }}</a>
-                        {{ end }}
-                    </div>
-                {{ end }}
-                {{ with .GetTerms "categories" }}
-                    <div class="btn-group btn-group-lg" role="group" aria-label="Categories">
-                        {{ range . }}
-                            <a href="{{ .RelPermalink }}" class="btn btn-dark">{{ .LinkTitle }}</a>
-                        {{ end }}
-                    </div>
-                {{ end }}
-            </div>
-        </div>
-        {{ with .GetTerms "tags" }}
-            <div class="row pt-2">
-                <div class="col-lg-4 offset-lg-4 col">
-                    <div class="card">
-                        <div class="card-header">
-                            Recipe Tags
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            {{ range . }}
-                                <li class="list-group-item"><a href="{{ .RelPermalink }}" class="btn btn-light w-100">{{ .LinkTitle }}</a></li>
-                            {{ end }}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        {{ end }}
-        <div class="row pt-4">
-            <div class="col">
-                <div class="card">
-                    {{ with .Summary }}
-                        <h4 class="card-header text-bg-secondary">{{ . }}</h4>
-                    {{ end }}
-                    {{ with .Content }}
-                        <div class="card-body card-content">
-                            {{ . }}
-                        </div>
-                    {{ end }}
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <dl class="row mb-0">
-                                <dt class="col-sm-2">Yield</dt>
-                                <dd class="col-sm-10 mb-0">
-                                    {{ if .Params.yields }}
-                                        {{ range $index, $yield := .Params.yields }}
-                                            <p class="mb-0 {{ if gt $index 0 }}mt-1 {{ end }}">{{ $yield }}</p>
-                                        {{ end }}
-                                    {{ else }}
-                                        {{ .Params.yield }}
-                                    {{ end }}
-                                </dd>
-                            </dl>
-                        </li>
-                        <li class="list-group-item">
-                            <dl class="row mb-0">
-                                <dt class="col-sm-2">Prep Time</dt>
-                                <dd class="col-sm-10 mb-0">
-                                    <span data-format-duration="true">{{ .Params.prepTime }}</span>
-                                </dd>
-                            </dl>
-                        </li>
-                        <li class="list-group-item">
-                            <dl class="row mb-0">
-                                <dt class="col-sm-2">Cook Time</dt>
-                                <dd class="col-sm-10 mb-0">
-                                    <span data-format-duration="true">{{ .Params.cookTime }}</span>
-                                </dd>
-                            </dl>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        {{ partial "recipe/header.html" . }}
+        {{ partial "recipe/description.html" . }}
+        {{ partial "recipe/equipment.html" .}}
+        <div class="row row-cols-1 row-cols-md-2 pt-4">
+            {{ partial "recipe/ingredients/ingredients.html" . }}
+            {{ partial "recipe/directions.html" . }}
         </div>
     </div>
 {{ end }}

@@ -1,0 +1,19 @@
+<div class="row row-cols-1 pt-4">
+    <div class="col text-center">
+        {{ with .GetTerms "equipment" }}
+            <div class="btn-group" role="group" aria-label="Equipment">
+                {{ range . }}
+                    {{ $equipment := . }}
+                    <a role="button" href="{{ .RelPermalink }}" class="btn btn-light">
+                        {{ with .Params.icon }}
+                            {{ $image := $equipment.Resources.Get . }}
+                            {{ $image = $image.Fit "80x80" }}
+                            <img src="{{ $image.RelPermalink }}" alt="Equipment icon">
+                        {{ end }}
+                        {{ .LinkTitle }}
+                    </a>
+                {{ end }}
+            </div>
+        {{ end }}
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="row pt-4">
+    <div class="col">
+        <div class="card">
+            {{ with .Summary }}
+            <h4 class="card-header text-bg-secondary">{{ . }}</h4>
+            {{ end }}
+            {{ with .Content }}
+            <div class="card-body card-content">
+                {{ . }}
+            </div>
+            {{ end }}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-2">Yield</dt>
+                        <dd class="col-sm-10 mb-0">
+                            {{ if .Params.yields }}
+                            {{ range $index, $yield := .Params.yields }}
+                            <p class="mb-0 {{ if gt $index 0 }}mt-1 {{ end }}">{{ $yield }}</p>
+                            {{ end }}
+                            {{ else }}
+                            {{ .Params.yield }}
+                            {{ end }}
+                        </dd>
+                    </dl>
+                </li>
+                <li class="list-group-item">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-2">Prep Time</dt>
+                        <dd class="col-sm-10 mb-0">
+                            <span data-format-duration="true">{{ .Params.prepTime }}</span>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="list-group-item">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-2">Cook Time</dt>
+                        <dd class="col-sm-10 mb-0">
+                            <span data-format-duration="true">{{ .Params.cookTime }}</span>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
