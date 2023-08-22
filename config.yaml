@@ -19,6 +19,7 @@ menu:
       weight: 6
       pageRef: /equipment/
 params:
+  number_of_recipes_on_home: 12
   social_account_types:
     - mastodon
     - github

@@ -3,16 +3,18 @@
         <div class="row mt-4">
             {{ .Content }}
         </div>
-        {{ partial "recipe-card/card-deck.html" (dict "pages" (.Paginate (where .Site.RegularPages "Section" "recipes")).Pages) }}
-        <div class="row mt-4">
-            <div class="col">
-                {{ template "_internal/pagination.html" . }}
+        {{ partial "recipe-card/card-deck.html" (dict "pages" (first .Site.Params.number_of_recipes_on_home (where .Site.RegularPages "Section" "recipes"))) }}
+        <div class="row row-cols-1 row-cols-md-3 py-4">
+            <div class="col d-grid">
+                <a href="{{ (.Site.GetPage "section" "recipes").RelPermalink }}" class="btn btn-primary">
+                    See All Recipes
+                </a>
             </div>
         </div>
     </div>
 {{ end }}
 
 {{ define "google_data" }}
-    {{ $carousel_pages := (first 6 (where (where .Site.RegularPages "Section" "recipes") "Params.googleReady" true)) }}
+    {{ $carousel_pages := (where (first .Site.Params.number_of_recipes_on_home (where .Site.RegularPages "Section" "recipes")) "Params.googleReady" true) }}
     {{ partial "google-carousel.html" $carousel_pages }}
 {{ end }}
