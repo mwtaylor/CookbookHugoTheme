@@ -1,0 +1,50 @@
+<script type="application/ld+json">
+    {{ $images := slice }}
+    {{ with .Resources.GetMatch "1x1/recipe.jpg" }}
+        {{ $images = $images | append .Permalink }}
+    {{ end }}
+    {{ with .Resources.GetMatch "4x3/recipe.jpg" }}
+        {{ $images = $images | append .Permalink }}
+    {{ end }}
+    {{ with .Resources.GetMatch "16x9/recipe.jpg" }}
+        {{ $images = $images | append .Permalink }}
+    {{ end }}
+    {{ $ingredientLabels := slice }}
+    {{ range $.Site.Params.ingredient_categories }}
+        {{ range $key, $label := . }}
+            {{ if and (index $.Page.Params $key) (ge (len (index $.Page.Params $key)) 1) }}
+                {{ $ingredientLabels = $ingredientLabels | append (index $.Page.Params $key) }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+    {{ $ingredientLabels = $ingredientLabels | append $.Page.Params.auto_ingredients }}
+    {{ $ingredients := slice }}
+    {{ range $ingredientLabels}}
+        {{ $ingredients = $ingredients | append (index $.Page.Params.ingredient_labels .) }}
+    {{ end }}
+    {{ $instructions := slice }}
+    {{ range .Params.instructions }}
+        {{ $sectionSteps := slice }}
+        {{ range .steps }}
+            {{ $sectionSteps = $sectionSteps | append (dict "@type" "HowToStep" "text" .text) }}
+        {{ end }}
+        {{ $instructions = $instructions | append (dict "@type" "HowToSection" "name" .section_name "itemListElement" $sectionSteps) }}
+    {{ end }}
+    {{ $data := dict
+        "@context" "https://schema.org"
+        "@type" "Recipe"
+        "name" .Title
+        "image" $images
+        "author" (dict "@type" "Person" "name" "Michael Taylor")
+        "datePublished"  .Date
+        "description" .Summary
+        "recipeIngredient" $ingredients
+        "recipeInstructions" $instructions
+        "prepTime" .Params.prepTime
+        "cookTime" .Params.cookTime
+        "recipeCategory" (index .Params.categories 0)
+        "recipeCuisine" (index .Params.cuisines 0)
+        "keywords" (delimit .Params.tags ", ")
+    }}
+    {{ jsonify $data | safeJS }}
+</script>

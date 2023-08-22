@@ -27,6 +27,9 @@
     >
     </script>
     <script src="https://kit.fontawesome.com/ccc02a44a7.js" crossorigin="anonymous"></script>
+    {{ if .Site.Params.add_google_data }}
+        {{ block "google_data" . }}{{ end }}
+    {{ end }}
 </head>
 <body style="visibility: hidden;" class="d-flex flex-column min-vh-100">
     {{ block "header" . }}

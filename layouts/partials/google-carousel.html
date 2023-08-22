@@ -1,0 +1,10 @@
+<script type="application/ld+json">
+    {{ $carouselItems := slice }}
+    {{ range $index, $page := . }}
+        {{ $position := add 1 $index }}
+        {{ $items := dict "@type" "ListItem" "position" $position "url" $page.Permalink }}
+        {{ $carouselItems = $carouselItems | append $items }}
+    {{ end }}
+    {{ $data := dict "@context" "https://schema.org" "@type" "ItemList" "itemListElement" $carouselItems }}
+    {{ jsonify $data | safeJS }}
+</script>

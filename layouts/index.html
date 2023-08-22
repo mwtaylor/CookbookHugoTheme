@@ -11,3 +11,8 @@
         </div>
     </div>
 {{ end }}
+
+{{ define "google_data" }}
+    {{ $carousel_pages := (first 6 (where (where .Site.RegularPages "Section" "recipes") "Params.googleReady" true)) }}
+    {{ partial "google-carousel.html" $carousel_pages }}
+{{ end }}

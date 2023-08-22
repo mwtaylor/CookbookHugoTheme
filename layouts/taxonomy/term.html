@@ -17,3 +17,8 @@
         </div>
     </div>
 {{ end }}
+
+{{ define "google_data" }}
+    {{ $carousel_pages := (first 6 (where .Pages "Params.googleReady" true)) }}
+    {{ partial "google-carousel.html" $carousel_pages }}
+{{ end }}
