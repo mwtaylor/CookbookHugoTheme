@@ -1,7 +1,7 @@
 <div class="col">
     {{ $section_base_params := (dict "site_params" $.Site.Params "page_params" $.Page.Params "recipe" $.Page.Title) }}
     {{ range .Params.ingredient_sections }}
-        {{ if isset . "section_title" | and (isset . "section_alternatives") }}
+        {{ if reflect.IsMap . }}
             {{ $section_params := merge $section_base_params (dict "title" .section_title "alternatives" .section_alternatives) }}
             {{ partial "recipe/ingredients/section.html" $section_params }}
         {{ else }}
