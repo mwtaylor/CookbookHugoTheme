@@ -40,9 +40,7 @@
     {{ block "footer" . }}
         {{ partial "footer.html" $.Site.Params }}
     {{ end }}
-    {{ with .Site.Params.credits }}
-        {{ partial "credits/modal.html" . }}
-    {{ end }}
+    {{ partial "credits/modal.html" $.Site.Params }}
     <script type="module" src="/js/main.js"></script>
 </body>
 </html>

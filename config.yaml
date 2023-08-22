@@ -39,3 +39,4 @@ params:
       link_values:
         - username
         - repository
+  cookbook_credits: "[Cookbook Theme](https://github.com/mwtaylor/CookbookHugoTheme) created by [mwtaylor](https://github.com/mwtaylor)"

@@ -6,7 +6,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {{ markdownify . }}
+                {{ with .credits }}
+                    {{ markdownify . }}
+                    <hr>
+                {{ end }}
+                {{ with .cookbook_icons_credits }}
+                    {{ markdownify . }}
+                    <hr>
+                {{ end }}
+                {{ markdownify .cookbook_credits }}
             </div>
         </div>
     </div>

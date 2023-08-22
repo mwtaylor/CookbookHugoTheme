@@ -2,9 +2,7 @@
     <div class="container-fluid">
         <div class="d-flex flex-lg-row flex-column w-100 gap-4">
             {{ partial "social-accounts/account-buttons.html" . }}
-            {{ with .credits }}
-                {{ partial "credits/open-button.html" }}
-            {{ end }}
+            {{ partial "credits/open-button.html" .credits }}
         </div>
     </div>
 </nav>
