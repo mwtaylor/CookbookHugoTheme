@@ -16,5 +16,7 @@
 {{ end }}
 
 {{ define "google_data" }}
-    {{ partial "google-recipe.html" . }}
+    {{ if .Params.googleReady }}
+        {{ partial "google-recipe.html" . }}
+    {{ end }}
 {{ end }}

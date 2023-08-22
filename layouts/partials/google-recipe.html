@@ -44,7 +44,7 @@
         "cookTime" .Params.cookTime
         "recipeCategory" (index .Params.categories 0)
         "recipeCuisine" (index .Params.cuisines 0)
-        "keywords" (delimit .Params.tags ", ")
+        "keywords" (delimit (.Params.tags | default slice) ", ")
     }}
     {{ jsonify $data | safeJS }}
 </script>
