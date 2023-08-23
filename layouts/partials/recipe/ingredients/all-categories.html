@@ -12,7 +12,13 @@
                     {{ $categorizedIngredients = $categorizedIngredients | append . }}
                 {{ end }}
             {{ end }}
-            {{ partial "recipe/ingredients/category.html" (dict "categoryName" $label "ingredients" $ingredients "ingredientLabels" $ingredientInformation.ingredient_labels "pageTitle" $recipe) }}
+            {{ partial "recipe/ingredients/category.html" (dict
+                "categoryName" $label
+                "ingredients" $ingredients
+                "ingredientLabels" $ingredientInformation.ingredient_labels
+                "links" $ingredientInformation.ingredient_links
+                "pageTitle" $recipe
+            ) }}
         {{ end }}
     {{ end }}
     {{ range $ingredientInformation.auto_ingredients }}

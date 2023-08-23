@@ -2,9 +2,9 @@
     <div class="container pt-4">
         <div class="row">
             <div class="col">
-                {{ $title := printf "%s Recipes" (humanize .Data.Term) }}
+                {{ $title := printf "%s Recipes" page.Title }}
                 {{ if isset page.Params "term_title" }}
-                    {{ $title = replace page.Params.term_title "[term]" (humanize .Data.Term) }}
+                    {{ $title = replace page.Params.term_title "[term]" page.Title }}
                 {{ end }}
                 <h1>{{ $title }}</h1>
             </div>
