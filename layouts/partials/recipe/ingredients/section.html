@@ -7,10 +7,10 @@
         <div class="tab-content" id="{{ $nav_content_id }}">
             {{ range $index, $alternative_section_name := .alternatives }}
                 {{ $nav_tab_id := printf "%s-tab-%s" $nav_id (anchorize $alternative_section_name) }}
-                {{ $nav_content_id := printf "%s-content-%s" $nav_id (anchorize $alternative_section_name) }}
+                {{ $nav_content_pane_id := printf "%s-%s" $nav_content_id (anchorize $alternative_section_name) }}
                 <div
                         class="tab-pane {{ if eq $index 0 }}show active{{ end }}"
-                        id="{{ $nav_content_id }}"
+                        id="{{ $nav_content_pane_id }}"
                         role="tabpanel"
                         aria-labelledby="{{ $nav_tab_id }}"
                         tabindex="{{ $index }}">
