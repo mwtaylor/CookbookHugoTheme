@@ -1,4 +1,4 @@
-<div class="col">
+<div class="col-12 col-lg-4">
     {{ $section_base_params := (dict "site_params" $.Site.Params "page_params" $.Page.Params "recipe" $.Page.Title) }}
     {{ range .Params.ingredient_sections }}
         {{ if reflect.IsMap . }}

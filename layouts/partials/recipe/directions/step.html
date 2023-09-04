@@ -1,0 +1,31 @@
+<li class="list-group-item">
+    {{ $section := .section }}
+    <div class="row">
+        <div class="col-12 col-md-7 col-xl-8">
+            {{ with .step.name }}<h5 class="text-primary">{{ . }}</h5>{{ end }}
+            {{ page.RenderString .step.text }}
+        </div>
+        <div class="col-12 col-md-5 col-xl-4">
+            {{ with .step.ingredients }}
+                <ul class="list-group">
+                    {{ range . }}
+                        <li class="list-group-item list-group-item-primary">
+                            {{ $label_params := (dict "key" .) }}
+                            {{ if isset $section "ingredient_section" }}
+                                {{ $label_params = merge $label_params (dict "section_name" $section.ingredient_section) }}
+                            {{ end }}
+                            {{ partial "recipe/ingredients/label.html" $label_params }}
+                        </li>
+                    {{ end }}
+                </ul>
+            {{ end }}
+        </div>
+    </div>
+    {{ with .step.image }}
+        {{ $image := page.Resources.GetMatch (. | printf "16x9/%s") }}
+        {{ $image = $image.Fill "1600x900" }}
+        <div class="mt-2 mx-5">
+            <img src="{{ $image.RelPermalink }}" alt="Completed recipe step" class="img-fluid rounded">
+        </div>
+    {{ end }}
+</li>

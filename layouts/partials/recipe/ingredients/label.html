@@ -1,0 +1,13 @@
+{{ $ingredients := page.Params }}
+{{ if (isset . "section_name") }}
+    {{ $ingredients = index page.Params .section_name }}
+{{ end }}
+{{ if (isset . "ingredient_labels") }}
+    {{ $ingredients = . }}
+{{ end }}
+
+{{ if not (isset $ingredients.ingredient_labels .key) }}
+    {{ errorf "No label found for ingredient %s in recipe %s" .key page.Title }}
+{{ end }}
+
+{{ return (index $ingredients.ingredient_labels .key) }}

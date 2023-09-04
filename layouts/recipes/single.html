@@ -6,10 +6,10 @@
         {{ partial "recipe/header.html" . }}
         {{ partial "recipe/description.html" . }}
         {{ partial "recipe/equipment.html" .}}
-        <div class="row row-cols-1 row-cols-md-2 pt-4">
+        <div class="row pt-4">
             {{ partial "recipe/ingredients/ingredients.html" . }}
             {{ with .Params.instructions }}
-                {{ partial "recipe/directions.html" . }}
+                {{ partial "recipe/directions/directions.html" . }}
             {{ end }}
         </div>
     </div>
