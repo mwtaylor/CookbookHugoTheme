@@ -3,7 +3,7 @@
         <h4>{{ .title }}</h4>
         <nav>
             {{ $nav_id := printf "nav-%s" (anchorize .title) }}
-            <div class="nav nav-tabs card-header-tabs" id="{{ $nav_id }}" role="tablist">
+            <div class="nav nav-pills card-header-pills" id="{{ $nav_id }}" role="tablist">
                 {{ range $index, $alternative_section_name := .alternatives }}
                     {{ $nav_tab_id := printf "%s-tab-%s" $nav_id (anchorize $alternative_section_name) }}
                     {{ $nav_content_id := printf "%s-content-%s" $nav_id (anchorize $alternative_section_name) }}
