@@ -12,9 +12,32 @@
                         <li class="list-group-item list-group-item-primary">
                             {{ $label_params := (dict "key" .) }}
                             {{ if isset $section "ingredient_section" }}
-                                {{ $label_params = merge $label_params (dict "section_name" $section.ingredient_section) }}
+                                {{ $has_alternatives := false }}
+                                {{ $alternatives := slice }}
+                                {{ range page.Params.ingredient_sections }}
+                                    {{ if (isset . "section_title") }}
+                                        {{ if eq .section_title $section.ingredient_section }}
+                                            {{ if (isset . "section_alternatives") }}
+                                                {{ $has_alternatives = true }}
+                                                {{ $alternatives = .section_alternatives }}
+                                            {{ end }}
+                                        {{ end }}
+                                    {{ end }}
+                                {{ end }}
+                                {{ if $has_alternatives }}
+                                    <div class="tab-content">
+                                        {{ range $index, $alternative_section_name := $alternatives }}
+                                            {{ $label_params = merge $label_params (dict "section_name" $alternative_section_name) }}
+                                            <div class="tab-pane {{ if eq $index 0 }}show active{{ end }}">{{ partial "recipe/ingredients/label.html" $label_params }}</div>
+                                        {{ end }}
+                                    </div>
+                                {{ else }}
+                                    {{ $label_params = merge $label_params (dict "section_name" $section.ingredient_section) }}
+                                    {{ partial "recipe/ingredients/label.html" $label_params }}
+                                {{ end }}
+                            {{ else }}
+                                {{ partial "recipe/ingredients/label.html" $label_params }}
                             {{ end }}
-                            {{ partial "recipe/ingredients/label.html" $label_params }}
                         </li>
                     {{ end }}
                 </ul>

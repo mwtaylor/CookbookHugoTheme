@@ -19,7 +19,7 @@
                             {{ end }}
                         {{ end }}
                         {{ if not $found_link }}
-                            {{ errorf "Invalid ingredient link for %s" . }}
+                            {{ errorf "Invalid ingredient link for %s in recipe %s" . page.Title }}
                         {{ end }}
                     {{ else }}
                         <span>{{ $label }}</span>
