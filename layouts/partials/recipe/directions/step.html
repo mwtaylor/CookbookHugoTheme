@@ -1,51 +1,13 @@
 <li class="list-group-item">
     {{ $section := .section }}
+    {{ $step := .step }}
     <div class="row">
         <div class="col-12 col-md-7 col-xl-8">
-            {{ with .step.name }}<h5 class="text-primary">{{ . }}</h5>{{ end }}
-            {{ page.RenderString .step.text }}
+            {{ with $step.name }}<h5 class="text-primary">{{ . }}</h5>{{ end }}
+            {{ page.RenderString $step.text }}
         </div>
         <div class="col-12 col-md-5 col-xl-4">
-            {{ with .step.ingredients }}
-                <ul class="list-group">
-                    {{ $has_alternatives := false }}
-                    {{ $alternatives := slice }}
-                    {{ if isset $section "ingredient_section" }}
-                        {{ range page.Params.ingredient_sections }}
-                            {{ if (isset . "section_title") }}
-                                {{ if eq .section_title $section.ingredient_section }}
-                                    {{ if (isset . "section_alternatives") }}
-                                        {{ $has_alternatives = true }}
-                                        {{ $alternatives = .section_alternatives }}
-                                    {{ end }}
-                                {{ end }}
-                            {{ end }}
-                        {{ end }}
-                    {{ end }}
-                    {{ range . }}
-                        <li class="list-group-item list-group-item-primary">
-                            {{ $label_params := (dict "key" .) }}
-                            {{ if $has_alternatives }}
-                                {{ range $index, $alternative_section_name := $alternatives }}
-                                    {{ $label_params = merge $label_params (dict "section_name" $alternative_section_name) }}
-                                    {{ $follow_tab_target := printf "nav-%s-content-%s" (anchorize $section.ingredient_section) (anchorize $alternative_section_name) }}
-                                    <div
-                                            style="{{ if ne $index 0 }}display: none;{{ end }}"
-                                            data-follow-tab-target="#{{ $follow_tab_target }}"
-                                    >
-                                        {{ partial "recipe/ingredients/label.html" $label_params }}
-                                    </div>
-                                {{ end }}
-                            {{ else if isset $section "ingredient_section" }}
-                                {{ $label_params = merge $label_params (dict "section_name" $section.ingredient_section) }}
-                                {{ partial "recipe/ingredients/label.html" $label_params }}
-                            {{ else }}
-                                {{ partial "recipe/ingredients/label.html" $label_params }}
-                            {{ end }}
-                        </li>
-                    {{ end }}
-                </ul>
-            {{ end }}
+            {{ partial "recipe/directions/step-ingredients.html" . }}
         </div>
     </div>
     {{ with .step.image }}

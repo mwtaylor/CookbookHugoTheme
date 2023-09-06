@@ -1,0 +1,85 @@
+{{ $section := .section }}
+{{ $step := .step }}
+
+{{/* Determine which section to get labels from. */}}
+{{/* Defined in the direction section and steps can override. */}}
+{{ $ingredient_section := "" }}
+{{ if isset $section "ingredient_section" }}
+    {{ $ingredient_section = $section.ingredient_section }}
+{{ end }}
+{{ if isset .step "ingredient_section" }}
+    {{ $ingredient_section = .step.ingredient_section }}
+{{ end }}
+
+{{/* If the ingredient section has alternatives find them all here */}}
+{{ $has_alternatives := false }}
+{{ $alternatives := slice }}
+{{ if ne $ingredient_section "" }}
+    {{ range page.Params.ingredient_sections }}
+        {{ if (isset . "section_title") }}
+            {{ if eq .section_title $ingredient_section }}
+                {{ if (isset . "section_alternatives") }}
+                    {{ $has_alternatives = true }}
+                    {{ $alternatives = .section_alternatives }}
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{/* Start a list of ingredient labels, or a list of labels per alternative section */}}
+{{ $ingredient_labels := slice }}
+{{ if $has_alternatives }}
+    {{ $ingredient_labels = dict }}
+    {{ range $alternatives }}
+        {{ $ingredient_labels = merge $ingredient_labels (dict . slice) }}
+    {{ end }}
+{{ end }}
+
+{{/* Go through each ingredient key and add it to the label list. */}}
+{{/* If there are alternative sections then add the label for all sections that have the key. */}}
+{{/* The key must exist in at least one alternative section. */}}
+{{ range $step.ingredients }}
+    {{ $label_params := (dict "key" .) }}
+    {{ if $has_alternatives }}
+        {{ $found_in_alternative := false }}
+        {{ range $alternatives }}
+            {{ if isset (index page.Params .).ingredient_labels $label_params.key }}
+                {{ $found_in_alternative = true }}
+                {{ $label_params = merge $label_params (dict "section_name" .) }}
+                {{ $ingredient_labels = merge $ingredient_labels (dict . ((index $ingredient_labels .) | append (partial "recipe/ingredients/label.html" $label_params))) }}
+            {{ end }}
+        {{ end }}
+        {{ if not $found_in_alternative }}
+            {{ errorf "Ingredient %s was added to step %s but no label exists for it in any alternative ingredient section" $label_params.key $step.name }}
+        {{ end }}
+    {{ else }}
+        {{ if ne $ingredient_section "" }}
+            {{ $label_params = merge $label_params (dict "section_name" $ingredient_section) }}
+        {{ end }}
+        {{ $ingredient_labels = $ingredient_labels | append (partial "recipe/ingredients/label.html" $label_params) }}
+    {{ end }}
+{{ end }}
+
+{{/* Show the ingredient labels as a list. */}}
+{{/* If there are alternative sections then show all the lists. */}}
+{{/* Only the first alternative section will be displayed by default. */}}
+{{/* Other lists will be shown when changing the ingredient list. */}}
+{{ if $has_alternatives }}
+    {{ $first_alternative := true }}
+    {{ range $alternatives }}
+        {{ $follow_tab_target := printf "nav-%s-content-%s" (anchorize $ingredient_section) (anchorize .) }}
+        <ul
+                class="list-group"
+                style="{{ if not $first_alternative }}display: none;{{ end }}"
+                data-follow-tab-target="#{{ $follow_tab_target }}"
+        >
+            {{ partial "recipe/directions/step-ingredient-list.html" (index $ingredient_labels .) }}
+        </ul>
+        {{ $first_alternative = false }}
+    {{ end }}
+{{ else }}
+    <ul class="list-group">
+        {{ partial "recipe/directions/step-ingredient-list.html" $ingredient_labels }}
+    </ul>
+{{ end }}

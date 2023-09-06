@@ -7,7 +7,11 @@
 {{ end }}
 
 {{ if not (isset $ingredients.ingredient_labels .key) }}
-    {{ errorf "No label found for ingredient %s in recipe %s" .key page.Title }}
+    {{ if (isset . "section_name") }}
+        {{ errorf "No label found for ingredient %s in section %s in recipe %s" .key .section_name page.Title }}
+    {{ else }}
+        {{ errorf "No label found for ingredient %s in recipe %s" .key page.Title }}
+    {{ end }}
 {{ end }}
 
 {{ return (index $ingredients.ingredient_labels .key) }}
