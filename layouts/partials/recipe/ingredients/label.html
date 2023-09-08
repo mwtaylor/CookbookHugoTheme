@@ -14,4 +14,4 @@
     {{ end }}
 {{ end }}
 
-{{ return (index $ingredients.ingredient_labels .key) }}
+{{ return markdownify (index $ingredients.ingredient_labels .key) }}
