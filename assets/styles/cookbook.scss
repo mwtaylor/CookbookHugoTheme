@@ -1,0 +1,26 @@
+@import "assets/styles/theme";
+
+$enable-negative-margins: true;
+
+@import "node_modules/bootstrap/scss/bootstrap";
+
+//
+// Custom styles
+//
+
+.card-content p:last-child {
+  margin-bottom: 0;
+}
+
+.card.text-bg-primary .card-header-pills .nav-link {
+  color: var(--bs-light);
+}
+
+.card.text-bg-primary .card-header-pills .nav-link:hover {
+  color: var(--bs-secondary);
+}
+
+.card.text-bg-primary .card-header-pills .nav-link.active {
+  color: var(--bs-primary);
+  background-color: var(--bs-light);
+}
