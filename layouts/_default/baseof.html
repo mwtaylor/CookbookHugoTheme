@@ -42,6 +42,7 @@
         {{ partial "footer.html" $.Site.Params }}
     {{ end }}
     {{ partial "credits/modal.html" $.Site.Params }}
-    <script type="module" src="/js/main.js"></script>
+    {{ $js := resources.Get "scripts/cookbook.js" | js.Build | minify | fingerprint }}
+    <script type="module" src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
 </body>
 </html>
