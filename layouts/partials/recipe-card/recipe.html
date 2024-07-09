@@ -4,8 +4,12 @@
         <h4 class="card-header text-bg-primary">
             Featured Recipe
         </h4>
-    {{ else }}
+    {{ else if isset .Params "external_recipe" }}
         <h4 class="card-header text-muted">
+            External Recipe
+        </h4>
+    {{ else }}
+        <h4 class="card-header text-bg-secondary">
             Recipe
         </h4>
     {{ end }}
