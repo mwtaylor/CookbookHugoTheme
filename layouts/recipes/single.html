@@ -17,6 +17,9 @@
             {{ with .Params.instructions }}
                 {{ partial "recipe/directions/directions.html" . }}
             {{ end }}
+            {{ with .Params.external_recipe }}
+                {{ partial "recipe/external_recipe.html" . }}
+            {{ end}}
         </div>
     </div>
 {{ end }}

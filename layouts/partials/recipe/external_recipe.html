@@ -1,0 +1,15 @@
+<div class="col-12 col-lg-8">
+    <div class="card text-bg-primary mb-4">
+        <h4 class="card-header">External Recipe</h4>
+        <div class="card-body bg-body text-black rounded-bottom">
+            <p class="card-text">This recipe is available at an external site.</p>
+            <h5 class="card-title">{{ .source }}</h5>
+            <a href="{{ .url }}" class="btn btn-primary">Go There</a>
+        </div>
+        {{ if .subscription }}
+            <div class="card-footer text-muted bg-body">
+                A subscription is required to read this recipe.
+            </div>
+        {{ end }}
+    </div>
+</div>
