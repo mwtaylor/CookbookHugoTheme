@@ -10,8 +10,14 @@
         </h4>
     {{ end }}
     {{ $image := resources.GetMatch "images/4x3/recipe-without-image.png" }}
-    {{ with .Resources.GetMatch "4x3/recipe.jpg" }}
-        {{ $image = . }}
+    {{ if isset .Params "card_image_4x3" }}
+        {{ with .Resources.GetMatch "4x3/recipe.jpg" }}
+            {{ $image = . }}
+        {{ else }}
+            {{ errorf "Card image not found for recipe \"%s\"" $.Page.Title }}
+        {{ end }}
+    {{ else if not .Draft }}
+        {{ warnf "Card image not set for recipe \"%s\"" $.Page.Title }}
     {{ end }}
     {{ $image = $image.Resize "800x600" }}
     <img src="{{ $image.RelPermalink }}" alt="Lead image for recipe {{ .Title }}">

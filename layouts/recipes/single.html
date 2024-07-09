@@ -1,7 +1,13 @@
 {{ define "body" }}
     <div class="container py-4">
-        {{ with .Resources.GetMatch "16x9/recipe.jpg" }}
-            <img src="{{ .RelPermalink }}" alt="Lead image for recipe {{ $.Page.Title }}" class="rounded mx-auto d-block img-fluid">
+        {{ if isset .Params "lead_image_16x9" }}
+            {{ with .Resources.GetMatch .Params.lead_image_16x9 }}
+                <img src="{{ .RelPermalink }}" alt="Lead image for recipe {{ $.Page.Title }}" class="rounded mx-auto d-block img-fluid">
+            {{ else }}
+                {{ errorf "Lead image not found for recipe \"%s\"" $.Page.Title }}
+            {{ end }}
+        {{ else if not .Draft }}
+            {{ warnf "Lead image not set for recipe \"%s\"" $.Page.Title }}
         {{ end }}
         {{ partial "recipe/header.html" . }}
         {{ partial "recipe/description.html" . }}
