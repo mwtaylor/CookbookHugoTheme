@@ -16,7 +16,7 @@
 {{ $alternatives := slice }}
 {{ if ne $ingredient_section "" }}
     {{ range page.Params.ingredient_sections }}
-        {{ if (isset . "section_title") }}
+        {{ if and (reflect.IsMap .) (isset . "section_title") }}
             {{ if eq .section_title $ingredient_section }}
                 {{ if (isset . "section_alternatives") }}
                     {{ $has_alternatives = true }}
