@@ -1,6 +1,11 @@
-<div class="row row-cols-1 pt-4">
-    <div class="col text-center">
-        {{ with .GetTerms "equipment" }}
+{{ with .GetTerms "equipment" }}
+    <div class="row row-cols-1 pt-4">
+        <div class="col text-center">
+            <h3>Required Equipment</h3>
+        </div>
+    </div>
+    <div class="row row-cols-1">
+        <div class="col text-center">
             <div class="btn-group" role="group" aria-label="Equipment">
                 {{ range . }}
                     {{ $equipment := . }}
@@ -14,6 +19,6 @@
                     </a>
                 {{ end }}
             </div>
-        {{ end }}
+        </div>
     </div>
-</div>
+{{ end }}

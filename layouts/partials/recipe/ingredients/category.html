@@ -1,12 +1,12 @@
 {{ if and .ingredients (ge (len .ingredients) 1) }}
-    <li class="list-group-item">
-        <h5 class="text-primary">{{ .categoryName }}</h5>
+    <li class="list-group-item text-bg-light">
+        <h5 class="text-primary-emphasis">{{ .categoryName }}</h5>
         <ul class="list-group">
             {{ $ingredientLabels := .ingredientLabels }}
             {{ $links := .links }}
             {{ $pageTitle := .pageTitle }}
             {{ range .ingredients }}
-                <li class="list-group-item list-group-item-primary d-flex gap-1 justify-content-between align-items-center">
+                <li class="list-group-item list-group-item-secondary d-flex gap-1 justify-content-between align-items-center">
                     {{ $label := (partial "recipe/ingredients/label.html" (dict "ingredient_labels" $ingredientLabels "key" .)) }}
                     {{ if not $links }}
                         {{ warnf "Recipe \"%s\" has ingredients without links to other recipes" $pageTitle }}
@@ -18,7 +18,7 @@
                                 {{ if eq .Data.Term $ingredient_link }}
                                     {{ $found_link = true }}
                                     <span>{{ $label }}</span>
-                                    <a href="{{ .RelPermalink }}"><span class="badge bg-primary rounded-pill">{{ len .Data.ingredient }}</span></a>
+                                    <a href="{{ .RelPermalink }}"><span class="badge text-bg-secondary rounded-pill">{{ len .Data.ingredient }}</span></a>
                                 {{ end }}
                             {{ end }}
                             {{ if not $found_link }}

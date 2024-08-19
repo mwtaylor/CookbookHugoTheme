@@ -1,3 +1,12 @@
+{{ if isset .Params "lead_image_16x9" }}
+    {{ with .Resources.GetMatch .Params.lead_image_16x9 }}
+        <img src="{{ .RelPermalink }}" alt="Lead image for recipe {{ $.Page.Title }}" class="rounded mx-auto d-block img-fluid">
+    {{ else }}
+        {{ errorf "Lead image not found for recipe \"%s\"" $.Page.Title }}
+    {{ end }}
+{{ else if not .Draft }}
+    {{ warnf "Lead image not set for recipe \"%s\"" $.Page.Title }}
+{{ end }}
 <div class="row pt-4">
     <div class="col text-center">
         <h1 class="display-1">{{ .Title }}</h1>
@@ -5,35 +14,6 @@
 </div>
 <div class="row pt-2">
     <div class="d-flex flex-lg-row flex-column gap-2 justify-content-center">
-        {{ with .GetTerms "cuisines" }}
-        <div class="btn-group btn-group-lg" role="group" aria-label="Cuisines">
-            {{ range . }}
-            <a href="{{ .RelPermalink }}" class="btn btn-dark">{{ .LinkTitle }}</a>
-            {{ end }}
-        </div>
-        {{ end }}
-        {{ with .GetTerms "categories" }}
-        <div class="btn-group btn-group-lg" role="group" aria-label="Categories">
-            {{ range . }}
-            <a href="{{ .RelPermalink }}" class="btn btn-dark">{{ .LinkTitle }}</a>
-            {{ end }}
-        </div>
-        {{ end }}
+
     </div>
 </div>
-{{ with .GetTerms "tags" }}
-<div class="row pt-2">
-    <div class="col-lg-4 offset-lg-4 col">
-        <div class="card">
-            <div class="card-header">
-                Recipe Tags
-            </div>
-            <ul class="list-group list-group-flush">
-                {{ range . }}
-                <li class="list-group-item"><a href="{{ .RelPermalink }}" class="btn btn-light w-100">{{ .LinkTitle }}</a></li>
-                {{ end }}
-            </ul>
-        </div>
-    </div>
-</div>
-{{ end }}

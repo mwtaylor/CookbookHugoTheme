@@ -1,9 +1,9 @@
-<li class="list-group-item">
+<li class="list-group-item text-bg-light border-secondary">
     {{ $section := .section }}
     {{ $step := .step }}
     <div class="row">
         <div class="col-12 col-md-7 col-xl-8">
-            {{ with $step.name }}<h5 class="text-primary">{{ . }}</h5>{{ end }}
+            {{ with $step.name }}<h5 class="text-primary-emphasis">{{ . }}</h5>{{ end }}
             {{ page.RenderString $step.text }}
         </div>
         <div class="col-12 col-md-5 col-xl-4">

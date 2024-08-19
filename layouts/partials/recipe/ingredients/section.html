@@ -1,5 +1,5 @@
 {{ $params := . }}
-<div class="card mb-4 text-bg-primary">
+<div class="card mb-4 text-bg-secondary">
     {{ partial "recipe/ingredients/header.html" (dict "title" .title "alternatives" .alternatives) }}
     {{ if .alternatives }}
         {{ $nav_id := printf "nav-%s" (anchorize .title) }}

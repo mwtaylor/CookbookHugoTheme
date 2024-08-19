@@ -25,7 +25,7 @@
     {{ end }}
     {{ $image = $image.Resize "800x600" }}
     <img src="{{ $image.RelPermalink }}" alt="Lead image for recipe {{ .Title }}">
-    <div class="card-body">
+    <div class="card-body text-bg-light">
         <div class="d-grid">
             <a href="{{ .RelPermalink }}" class="btn btn-lg btn-outline-primary stretched-link">{{ .Title }}</a>
         </div>

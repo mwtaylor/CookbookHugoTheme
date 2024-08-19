@@ -1,8 +1,8 @@
 <div class="row pt-4">
-    <div class="col">
-        <div class="card">
+    <div class="col-8">
+        <div class="card text-bg-light">
             {{ with .Summary }}
-            <h4 class="card-header text-bg-secondary">{{ . }}</h4>
+            <h4 class="card-header">{{ . }}</h4>
             {{ end }}
             {{ with .Content }}
             <div class="card-body card-content">
@@ -10,7 +10,7 @@
             </div>
             {{ end }}
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">
+                <li class="list-group-item text-bg-light">
                     <dl class="row mb-0">
                         <dt class="col-sm-2">Yield</dt>
                         <dd class="col-sm-10 mb-0">
@@ -24,7 +24,7 @@
                         </dd>
                     </dl>
                 </li>
-                <li class="list-group-item">
+                <li class="list-group-item text-bg-light">
                     <dl class="row mb-0">
                         <dt class="col-sm-2">Prep Time</dt>
                         <dd class="col-sm-10 mb-0">
@@ -32,7 +32,7 @@
                         </dd>
                     </dl>
                 </li>
-                <li class="list-group-item">
+                <li class="list-group-item text-bg-light">
                     <dl class="row mb-0">
                         <dt class="col-sm-2">Cook Time</dt>
                         <dd class="col-sm-10 mb-0">
@@ -40,6 +40,40 @@
                         </dd>
                     </dl>
                 </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card text-bg-light">
+            <div class="card-header">
+                Find Similar Recipes
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-bg-light">
+                    <div class="d-flex gap-3">
+                        {{ with .GetTerms "cuisines" }}
+                            <div class="btn-group btn-group-lg flex-fill" role="group" aria-label="Cuisines">
+                                {{ range . }}
+                                    <a href="{{ .RelPermalink }}" class="btn btn-primary">{{ .LinkTitle }}</a>
+                                {{ end }}
+                            </div>
+                        {{ end }}
+                        {{ with .GetTerms "categories" }}
+                            <div class="btn-group btn-group-lg flex-fill" role="group" aria-label="Categories">
+                                {{ range . }}
+                                    <a href="{{ .RelPermalink }}" class="btn btn-primary">{{ .LinkTitle }}</a>
+                                {{ end }}
+                            </div>
+                        {{ end }}
+                    </div>
+                </li>
+                {{ with .GetTerms "tags" }}
+                    {{ range . }}
+                        <li class="list-group-item text-bg-light">
+                            <a href="{{ .RelPermalink }}" class="btn btn-sm btn-light w-100">{{ .LinkTitle }}</a>
+                        </li>
+                    {{ end }}
+                {{ end }}
             </ul>
         </div>
     </div>
