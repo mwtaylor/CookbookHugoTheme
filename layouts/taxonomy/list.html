@@ -18,15 +18,15 @@
                                     class="accordion-button collapsed"
                                     type="button"
                                     data-bs-toggle="collapse"
-                                    data-bs-target="#{{ .Term }}-recipe-list"
-                                    aria-controls="{{ .Term }}-recipe-list"
+                                    data-bs-target="#{{ .Term | safeHTMLAttr }}-recipe-list"
+                                    aria-controls="{{ .Term | safeHTMLAttr }}-recipe-list"
                             >
                                 {{ .Page.Title }}
                             </button>
                         </h1>
                         <div
                                 class="accordion-collapse collapse"
-                                id="{{ .Term }}-recipe-list"
+                                id="{{ .Term | safeHTMLAttr }}-recipe-list"
                                 data-bs-parent="#taxonomy-term-list"
                         >
                             <div class="accordion-body">
